@@ -1,33 +1,16 @@
 package com.setbadge
 
-import com.facebook.react.BaseReactPackage
+import com.facebook.react.ReactPackage
 import com.facebook.react.bridge.NativeModule
 import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.module.model.ReactModuleInfo
-import com.facebook.react.module.model.ReactModuleInfoProvider
-import java.util.HashMap
+import com.facebook.react.uimanager.ViewManager
 
-class SetbadgePackage : BaseReactPackage() {
-  override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
-    return if (name == SetbadgeModule.NAME) {
-      SetbadgeModule(reactContext)
-    } else {
-      null
-    }
+class SetbadgePackage : ReactPackage {
+  override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
+    return listOf(SetbadgeModule(reactContext))
   }
 
-  override fun getReactModuleInfoProvider(): ReactModuleInfoProvider {
-    return ReactModuleInfoProvider {
-      val moduleInfos: MutableMap<String, ReactModuleInfo> = HashMap()
-      moduleInfos[SetbadgeModule.NAME] = ReactModuleInfo(
-        SetbadgeModule.NAME,
-        SetbadgeModule.NAME,
-        false,  // canOverrideExistingModule
-        false,  // needsEagerInit
-        false,  // isCxxModule
-        true // isTurboModule
-      )
-      moduleInfos
-    }
+  override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
+    return emptyList()
   }
 }

@@ -1,20 +1,30 @@
 package com.setbadge
+import android.app.NotificationManager
 
+import android.content.Context
 import com.facebook.react.bridge.ReactApplicationContext
-import com.facebook.react.module.annotations.ReactModule
+import com.facebook.react.bridge.ReactContextBaseJavaModule
+import com.facebook.react.bridge.ReactMethod
+import me.leolin.shortcutbadger.ShortcutBadger
 
-@ReactModule(name = SetbadgeModule.NAME)
 class SetbadgeModule(reactContext: ReactApplicationContext) :
-  NativeSetbadgeSpec(reactContext) {
+  ReactContextBaseJavaModule(reactContext) {
 
-  override fun getName(): String {
-    return NAME
+  override fun getName(): String = NAME
+
+  @ReactMethod
+  fun setBadge(count: Int) {   // nhận Int trực tiếp
+    val context: Context = reactApplicationContext
+    ShortcutBadger.applyCount(context, count)
   }
 
-  // Example method
-  // See https://reactnative.dev/docs/native-modules-android
-  override fun multiply(a: Double, b: Double): Double {
-    return a * b
+  @ReactMethod
+  fun clearBadge() {
+    val context: Context = reactApplicationContext
+    ShortcutBadger.removeCount(context)
+    val notificationManager =
+      context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    notificationManager.cancelAll()
   }
 
   companion object {
