@@ -1,5 +1,6 @@
-import Setbadge from './NativeSetbadge';
+import { NativeModules } from 'react-native';
 
-export function multiply(a: number, b: number): number {
-  return Setbadge.multiply(a, b);
-}
+const { Setbadge } = NativeModules;
+
+export const setBadge = (count: number) => Setbadge.setBadge(count);
+export const clearBadge = () => Setbadge.clearBadge();
