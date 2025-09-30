@@ -4,23 +4,23 @@ setbadge Anhdroid
 
 ## Installation
 
-
 ```sh
 npm install react-native-setbadge
-```
 
+
+yarn add react-native-setbadge
+```
 
 ## Usage
 
-
 ```js
-import { multiply } from 'react-native-setbadge';
+import { NativeModules } from 'react-native';
 
-// ...
+const { Setbadge } = NativeModules;
 
-const result = multiply(3, 7);
+export const setBadge = (count: number) => Setbadge.setBadge(count);
+export const clearBadge = () => Setbadge.clearBadge();
 ```
-
 
 ## Contributing
 

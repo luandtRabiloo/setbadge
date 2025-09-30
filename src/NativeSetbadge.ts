@@ -1,7 +1,6 @@
-import { TurboModuleRegistry, type TurboModule } from 'react-native';
+import { NativeModules } from 'react-native';
 
-export interface Spec extends TurboModule {
-  multiply(a: number, b: number): number;
-}
+const { Setbadge } = NativeModules;
 
-export default TurboModuleRegistry.getEnforcing<Spec>('Setbadge');
+export const setBadge = (count: number) => Setbadge.setBadge(count);
+export const clearBadge = () => Setbadge.clearBadge();
